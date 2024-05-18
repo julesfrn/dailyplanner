@@ -1,5 +1,5 @@
-import { Activity } from '../Activity'
-import { IActivityRepository } from '../repositories/IActivityRepository'
+import { Activity } from './domain/Activity'
+import { IActivityRepository } from './domain/repositories/IActivityRepository'
 
 export class RetreiveAllActivitiesUseCase {
   constructor(private readonly activityRepository: IActivityRepository) {}

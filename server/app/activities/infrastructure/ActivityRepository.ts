@@ -7,6 +7,14 @@ export class ActivityRepository implements IActivityRepository {
 
   async findAll(): Promise<Activity[]> {
     const rows = await this.activityDataSource.getActivities()
-    return rows.map((row) => new Activity(row.id, row.text))
+    return rows.map((row) => new Activity(row.id, row.name))
+  }
+
+  async create(activity: Activity): Promise<void> {
+    await this.activityDataSource.createOne(activity)
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.activityDataSource.deleteOne(id)
   }
 }
