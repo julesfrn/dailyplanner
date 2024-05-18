@@ -1,19 +1,33 @@
 import { CreateActivityUseCase } from '../CreateActivityUseCase'
 import { RetreiveAllActivitiesUseCase } from '../RetreiveAllActivitiesUseCase'
+import { RetreiveActivityUseCase } from '../RetreiveActivityUseCase'
 import { DeleteActivityUseCase } from '../DeleteActivityUseCase'
-import { HTTPRequest } from '../../shared/presentation/Route'
+import { HTTPRequest, HTTPResponse } from '../../shared/presentation/Route'
+import { ActivityDTO } from './ActivityDTO'
 
 export class ActivitiesController {
   constructor(
     private readonly retreiveAllActivitiesUseCase: RetreiveAllActivitiesUseCase,
+    private readonly retreiveActivityUseCase: RetreiveActivityUseCase,
     private readonly createActivityUseCase: CreateActivityUseCase,
     private readonly deleteActivityUseCase: DeleteActivityUseCase
   ) {}
 
-  async getActivities() {
+  async getActivities(): Promise<HTTPResponse<ActivityDTO[]>> {
     try {
       const activities = await this.retreiveAllActivitiesUseCase.execute()
       return { status: 200, body: activities }
+    } catch (error) {
+      return { status: 500, body: error }
+    }
+  }
+
+  async getActivity(
+    request: HTTPRequest<undefined, undefined, { id: string }>
+  ): Promise<HTTPResponse<ActivityDTO>> {
+    try {
+      const activity = await this.retreiveActivityUseCase.execute(request.params.id)
+      return { status: 200, body: activity }
     } catch (error) {
       return { status: 500, body: error }
     }

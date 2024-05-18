@@ -40,6 +40,7 @@ export class MySQLEventDataSource {
     const [rows] = await this.connection.execute<EventDTO[]>(
       `SELECT * FROM ${this.tableName}
         WHERE start_date <= ? AND end_date >= ?
+        ORDER BY start_date ASC
       `,
       [end, start]
     )

@@ -14,6 +14,11 @@ export const getActivitiesRoutes = (activitiesController: ActivitiesController):
       handler: activitiesController.getActivities.bind(activitiesController)
     },
     {
+      method: 'get',
+      path: '/activities/:id',
+      handler: activitiesController.getActivity.bind(activitiesController)
+    },
+    {
       method: 'delete',
       path: '/activities/:id',
       handler: activitiesController.deleteActivity.bind(activitiesController)

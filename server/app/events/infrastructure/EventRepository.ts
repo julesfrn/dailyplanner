@@ -21,7 +21,7 @@ export class EventRepository implements IEventRepository {
           eventDTO.activity_id,
           eventDTO.start_date,
           eventDTO.end_date,
-          eventDTO.is_done
+          Boolean(eventDTO.is_done)
         )
       : null
   }
@@ -39,7 +39,7 @@ export class EventRepository implements IEventRepository {
           eventDTO.activity_id,
           eventDTO.start_date,
           eventDTO.end_date,
-          eventDTO.is_done
+          Boolean(eventDTO.is_done)
         )
     )
   }

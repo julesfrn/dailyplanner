@@ -15,6 +15,7 @@ import { getEventsRoutes } from './app/events/presentation/getEventsRoutes'
 import { DeleteEventUseCase } from './app/events/DeleteEventUseCase'
 import { ToggleEventIsDoneUseCase } from './app/events/ToggleEventIsDoneUseCase'
 import { RetreiveEventsForPeriodUseCase } from './app/events/RetreiveEventsForPeriodUseCase'
+import { RetreiveActivityUseCase } from './app/activities/RetreiveActivityUseCase'
 
 export const injectDendencies = async (): Promise<Route[]> => {
   const mySQLConnection = await getMySQLConnection()
@@ -26,6 +27,7 @@ export const injectDendencies = async (): Promise<Route[]> => {
   const eventRepository = new EventRepository(mySQLEventDataSource)
 
   const retreiveAllActivitiesUseCase = new RetreiveAllActivitiesUseCase(activityRepository)
+  const retreiveActivityUseCase = new RetreiveActivityUseCase(activityRepository)
   const createActivityUseCase = new CreateActivityUseCase(activityRepository)
   const deleteActivityUseCase = new DeleteActivityUseCase(activityRepository)
   const createEventUseCase = new CreateEventUseCase(eventRepository)
@@ -35,6 +37,7 @@ export const injectDendencies = async (): Promise<Route[]> => {
 
   const activitiesController = new ActivitiesController(
     retreiveAllActivitiesUseCase,
+    retreiveActivityUseCase,
     createActivityUseCase,
     deleteActivityUseCase
   )

@@ -6,8 +6,13 @@ export class ActivityRepository implements IActivityRepository {
   constructor(private readonly activityDataSource: MySQLActivityDataSource) {}
 
   async findAll(): Promise<Activity[]> {
-    const rows = await this.activityDataSource.getActivities()
+    const rows = await this.activityDataSource.findAll()
     return rows.map((row) => new Activity(row.id, row.name))
+  }
+
+  async findById(id: string): Promise<Activity | null> {
+    const activityDTO = await this.activityDataSource.findOneByPK(id)
+    return activityDTO ? new Activity(activityDTO.id, activityDTO.name) : null
   }
 
   async create(activity: Activity): Promise<void> {

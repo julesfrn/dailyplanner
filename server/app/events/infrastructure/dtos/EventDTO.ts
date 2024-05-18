@@ -5,5 +5,5 @@ export interface EventDTO extends RowDataPacket {
   activity_id: string
   start_date: Date
   end_date: Date
-  is_done: boolean
+  is_done: 1 | 0
 }

@@ -1,6 +1,6 @@
 export type HTTPResponse<Body = any> = {
   status: number
-  body?: Body
+  body?: Body | unknown
 }
 
 export type HTTPRequest<Payload = any, Query = any, Params = any> = {

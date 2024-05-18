@@ -1,9 +1,10 @@
-import { HTTPRequest } from '../../shared/presentation/Route'
+import { HTTPRequest, HTTPResponse } from '../../shared/presentation/Route'
 import { CreateEventUseCase } from '../CreateEventUseCase'
 import { DeleteEventUseCase } from '../DeleteEventUseCase'
 import { RetreiveEventsForPeriodUseCase } from '../RetreiveEventsForPeriodUseCase'
 import { ToggleEventIsDoneUseCase } from '../ToggleEventIsDoneUseCase'
 import { CreateEventRequest } from './CreateEventRequest'
+import { EventDTO } from './EventDTO'
 
 export class EventController {
   constructor(
@@ -55,7 +56,7 @@ export class EventController {
 
   async retreiveEventsForPeriod(
     request: HTTPRequest<undefined, { startDate: string; endDate: string }>
-  ) {
+  ): Promise<HTTPResponse<EventDTO[]>> {
     try {
       const events = await this.retreiveEventsForPeriodUseCase.execute(
         new Date(request.query.startDate),
@@ -66,8 +67,8 @@ export class EventController {
         body: events.map((event) => ({
           id: event.id,
           activityId: event.activityId,
-          startDate: event.startDate,
-          endDate: event.endDate,
+          startDate: event.startDate.toISOString(),
+          endDate: event.endDate.toISOString(),
           isDone: event.isDone
         }))
       }
