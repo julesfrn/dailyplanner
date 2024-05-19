@@ -1,36 +1,52 @@
 <template>
-  <div>
-    <h1>À faire aujourd'hui ({{ startDate.toLocaleDateString() }})</h1>
-    <ul>
-      <li v-for="event in eventWithActivity" :key="event.id">
-        {{ event.activity.name }} - de {{ new Date(event.startDate).toLocaleTimeString() }} à
-        {{ new Date(event.endDate).toLocaleTimeString() }}
-      </li>
-    </ul>
+  <div class="page">
+    <NTimeline>
+      <NTimelineItem v-for="event in eventWithActivity" :key="event.id" type="success">
+        <CDailyEvents :event-with-activity="event" />
+      </NTimelineItem>
+    </NTimeline>
+    <CCreateEventForm @addedEvent="refreshEvents" />
   </div>
 </template>
 
 <script setup lang="ts">
+import dayjs from 'dayjs'
+import { NTimeline, NTimelineItem } from 'naive-ui'
 import type { ActivityDTO } from '~/server/app/activities/presentation/ActivityDTO'
 import type { EventDTO } from '~/server/app/events/presentation/EventDTO'
 
-const startDate = new Date()
-startDate.setHours(0, 0, 0, 0)
-const endDate = new Date()
-endDate.setHours(0, 0, 0, 0)
-endDate.setDate(endDate.getDate() + 1)
+const startDate = dayjs().startOf('day')
+const endDate = dayjs().endOf('day')
 
-const { data: events } = await useFetch<EventDTO[]>(`/api/events`, {
-  query: { startDate: startDate.toISOString(), endDate: endDate.toISOString() },
-  method: 'GET'
-})
-
-const eventWithActivity = await Promise.all(
-  events.value!.map(async (event) => {
-    const { data: activity } = await useFetch<ActivityDTO>(`/api/activities/${event.activityId}`, {
-      method: 'GET'
-    })
-    return { ...event, activity: activity.value! }
+const getEvents = async () => {
+  const events = await $fetch<EventDTO[]>(`/api/events`, {
+    query: { startDate: startDate.toISOString(), endDate: endDate.toISOString() },
+    method: 'GET'
   })
-)
+
+  return await Promise.all(
+    events!.map(async (event) => {
+      const activity = await $fetch<ActivityDTO>(`/api/activities/${event.activityId}`, {
+        method: 'GET'
+      })
+      return { ...event, activity: activity! }
+    })
+  )
+}
+
+const { data: eventWithActivity } = await useAsyncData(getEvents)
+
+const refreshEvents = async () => {
+  eventWithActivity.value = await getEvents()
+}
 </script>
+
+<style scoped>
+.page {
+  padding: 32px 56px 56px;
+  position: relative;
+}
+.page h2 {
+  margin-top: 0;
+}
+</style>

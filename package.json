@@ -13,7 +13,9 @@
     "migrate": "npm run build && node .nuxt/"
   },
   "dependencies": {
+    "dayjs": "^1.11.11",
     "mysql2": "^3.9.7",
+    "naive-ui": "^2.38.2",
     "nuxt": "^3.11.2",
     "nuxtjs-naive-ui": "^1.0.2",
     "vue": "^3.4.21",
@@ -21,6 +23,7 @@
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.8.0",
+    "@vicons/carbon": "^0.12.0",
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^13.0.0",
     "eslint": "^8.57.0",
