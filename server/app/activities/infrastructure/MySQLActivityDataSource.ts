@@ -8,13 +8,18 @@ export class MySQLActivityDataSource {
   private readonly tableName = 'activities'
 
   async findAll(): Promise<ActivityDTO[]> {
-    const [rows] = await this.connection.query<ActivityDTO[]>(`SELECT * FROM ${this.tableName}`)
+    const [rows] = await this.connection.query<ActivityDTO[]>(
+      `SELECT * FROM ${this.tableName} ORDER BY name ASC`
+    )
 
     return rows
   }
 
   async findOneByPK(id: string): Promise<ActivityDTO | null> {
-    const [rows] = await this.connection.query<ActivityDTO[]>(`SELECT * FROM ${this.tableName} WHERE id = ?`, [id])
+    const [rows] = await this.connection.query<ActivityDTO[]>(
+      `SELECT * FROM ${this.tableName} WHERE id = ?`,
+      [id]
+    )
 
     return rows[0] || null
   }
