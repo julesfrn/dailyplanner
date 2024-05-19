@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["nuxtjs-naive-ui"]
+  modules: ['nuxtjs-naive-ui'],
+  css: ['~/assets/main.css']
 })

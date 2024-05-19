@@ -25,9 +25,10 @@ export class MySQLActivityDataSource {
   }
 
   async createOne(activity: Activity): Promise<void> {
-    await this.connection.execute(`INSERT INTO ${this.tableName} (id, name) VALUES (?, ?)`, [
+    await this.connection.execute(`INSERT INTO ${this.tableName} (id, name, color) VALUES (?, ?, ?)`, [
       activity.id,
-      activity.name
+      activity.name,
+      activity.color
     ])
   }
 

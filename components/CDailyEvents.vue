@@ -3,9 +3,8 @@
     :title="eventWithActivity.activity.name"
     size="small"
     class="daily-event"
-    @mouseenter="enableCheckboxHover"
-    @mouseleave="disableCheckboxHover"
     @click.prevent="toggleEventDone"
+    :class="eventWithActivity.activity.color"
   >
     De {{ dayjs(eventWithActivity.startDate).format('HH:mm') }} à
     {{ dayjs(eventWithActivity.endDate).format('HH:mm') }}
@@ -30,8 +29,6 @@ const { eventWithActivity } = defineProps({
 const isChecked = ref(eventWithActivity.isDone)
 
 const isDoneCheckbox = ref<typeof NCheckbox | null>(null)
-const enableCheckboxHover = () => isDoneCheckbox.value?.focus()
-const disableCheckboxHover = () => isDoneCheckbox.value?.blur()
 const toggleEventDone = async () => {
   const { isDone } = await $fetch<{ isDone: boolean }>(
     `/api/events/${eventWithActivity.id}/is-done`,
@@ -55,5 +52,29 @@ const toggleEventDone = async () => {
   transform-origin: center center;
   right: var(--n-padding-left);
   top: calc(50% - 9px);
+}
+.light-coral:hover {
+  border-color: var(--my-color-light-coral);
+}
+.light-coral:hover .is-done-checkbox {
+  border-color: var(--my-color-light-coral);
+}
+.sunset:hover {
+  border-color: var(--my-color-sunset);
+}
+.sunset:hover .is-done-checkbox {
+  border-color: var(--my-color-sunset);
+}
+.aquamarine:hover {
+  border-color: var(--my-color-aquamarine);
+}
+.aquamarine:hover .is-done-checkbox {
+  border-color: var(--my-color-aquamarine);
+}
+.light-sky-blue:hover {
+  border-color: var(--my-color-light-sky-blue);
+}
+.light-sky-blue:hover .is-done-checkbox {
+  border-color: var(--my-color-light-sky-blue);
 }
 </style>

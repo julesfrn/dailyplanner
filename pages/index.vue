@@ -1,7 +1,12 @@
 <template>
   <div class="page">
     <NTimeline>
-      <NTimelineItem v-for="event in eventWithActivity" :key="event.id" type="success">
+      <NTimelineItem
+        v-for="event in eventWithActivity"
+        :key="event.id"
+        type="success"
+        :color="`var(--my-color-${event.activity.color})`"
+      >
         <CDailyEvents :event-with-activity="event" />
       </NTimelineItem>
     </NTimeline>

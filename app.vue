@@ -83,7 +83,7 @@ const menuOptions = [
   },
   {
     label: () => h(NuxtLink, { to: '/activites' }, { default: () => 'Gérer les activités' }),
-    key: 'a-wild-sheep-chase',
+    key: 'activities',
     icon: renderIcon(UserActivityIcon)
   }
 ]

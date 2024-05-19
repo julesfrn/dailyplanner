@@ -3,11 +3,12 @@
 
 ## Fonctionnalités
 
-- [ ] Choisir une couleur par activité et l'afficher dans le front
+- [ ] Customiser une checkbox avec les couleurs custom
 - [ ] Ajouter le nombre d'évenements terminés par activité sur le nombre total d'évenements
 - [ ] Supprimer une activité
 - [ ] Supprimer un évenement
 - [ ] Pouvoir voir les événements des jours précédents et suivants
+- [ ] Ajouter une description à un évenement
 
 ## Gestions des erreurs
 

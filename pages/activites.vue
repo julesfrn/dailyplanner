@@ -7,12 +7,13 @@
         :title="activity.name"
         :key="activity.id"
         class="activity"
+        :style="`border-color: var(--my-color-${activity.color}); color: var(--my-color-${activity.color})`"
       >
       </NCard>
       <NCard class="activity" @click="toggleActivityForm">
         <div class="activity-last-content">
           <NIcon size="24" :component="AddIcon"></NIcon>
-          <div class="flex justify-center items-center h-full">Ajouter une activité</div>
+          <div>Ajouter une activité</div>
         </div>
       </NCard>
     </div>

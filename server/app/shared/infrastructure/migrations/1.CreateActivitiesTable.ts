@@ -5,7 +5,7 @@ export class CreateActivitiesTable extends AbstractMigration {
 
   async up(): Promise<void> {
     await this.mysqlConnection.query(
-      `CREATE TABLE activities (id VARCHAR(255) PRIMARY KEY, name VARCHAR(255) NOT NULL)`
+      `CREATE TABLE activities (id VARCHAR(255) PRIMARY KEY, name VARCHAR(255), color VARCHAR(255) NOT NULL)`
     )
   }
 

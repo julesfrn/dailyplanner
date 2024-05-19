@@ -33,10 +33,13 @@ export class ActivitiesController {
     }
   }
 
-  async createActivity(request: HTTPRequest<{ name: string }>) {
+  async createActivity(request: HTTPRequest<{ name: string; color: string }>) {
     try {
-      const activity = await this.createActivityUseCase.execute(request.payload.name)
-      return { status: 201, body: { id: activity.id, name: activity.name } }
+      const activity = await this.createActivityUseCase.execute(
+        request.payload.name,
+        request.payload.color
+      )
+      return { status: 201, body: { id: activity.id, name: activity.name, color: activity.color } }
     } catch (error) {
       return { status: 500, body: error }
     }
