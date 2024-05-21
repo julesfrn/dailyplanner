@@ -10,10 +10,10 @@ export class MySQLEventDataSource {
   async createOne(event: Event): Promise<void> {
     await this.connection.execute(
       `INSERT INTO ${this.tableName}
-        (id, activity_id, start_date, end_date, is_done)
-        VALUES (?, ?, ?, ?, ?)
+        (id, activity_id, start_date, end_date, is_done, description)
+        VALUES (?, ?, ?, ?, ?, ?)
       `,
-      [event.id, event.activityId, event.startDate, event.endDate, event.isDone]
+      [event.id, event.activityId, event.startDate, event.endDate, event.isDone, event.description]
     )
   }
 
@@ -29,10 +29,10 @@ export class MySQLEventDataSource {
   async updateOne(event: Event): Promise<void> {
     await this.connection.execute(
       `UPDATE ${this.tableName}
-        SET start_date = ?, end_date = ?, is_done = ?
+        SET start_date = ?, end_date = ?, is_done = ?, description = ?
         WHERE id = ?
       `,
-      [event.startDate, event.endDate, event.isDone, event.id]
+      [event.startDate, event.endDate, event.isDone, event.description, event.id]
     )
   }
 

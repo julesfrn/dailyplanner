@@ -23,6 +23,9 @@
             placeholder="Votre activité"
           />
         </NFormItem>
+        <NFormItem label="Description supplémentaire" path="description" required>
+          <NInput v-model:value="formValue.description" placeholder="Description" type="textarea" />
+        </NFormItem>
         <NFormItem>
           <NButton type="primary" @click="validateForm">Ajouter</NButton>
         </NFormItem>
@@ -42,7 +45,8 @@ import {
   NIcon,
   NSelect,
   NButton,
-  useNotification
+  useNotification,
+  NInput
 } from 'naive-ui'
 import { TaskAdd as PlusIcon } from '@vicons/carbon'
 import type { ActivityDTO } from '~/server/app/activities/presentation/ActivityDTO'
@@ -63,12 +67,14 @@ const formRef = ref<typeof NForm | null>(null)
 
 const formValue = ref({
   range: null as [number, number] | null,
-  activityId: null as string | null
+  activityId: null as string | null,
+  description: null as string | null
 })
 
 const rules = {
   range: { required: true, message: 'Veuillez sélectionner une date et une heure' },
-  activityId: { required: true, message: 'Veuillez sélectionner une activité' }
+  activityId: { required: true, message: 'Veuillez sélectionner une activité' },
+  description: { required: false }
 }
 
 const activitiesOptions = computed(() =>
@@ -93,7 +99,8 @@ const addEvent = async () => {
       body: {
         startDate: dayjs(formValue.value.range[0]).toISOString(),
         endDate: dayjs(formValue.value.range[1]).toISOString(),
-        activityId: formValue.value.activityId
+        activityId: formValue.value.activityId,
+        description: formValue.value.description ? formValue.value.description : undefined
       }
     })
     toggleEventForm()

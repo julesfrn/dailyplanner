@@ -19,16 +19,18 @@ export class EventController {
       const event = await this.createEventUseCase.execute(
         request.payload.activityId,
         new Date(request.payload.startDate),
-        new Date(request.payload.endDate)
+        new Date(request.payload.endDate),
+        request.payload.description
       )
       return {
         status: 201,
         body: {
           id: event.id,
           activityId: event.activityId,
-          startDate: event.startDate,
-          endDate: event.endDate,
-          isDone: event.isDone
+          startDate: event.startDate.toISOString(),
+          endDate: event.endDate.toISOString(),
+          isDone: event.isDone,
+          description: event.description || undefined
         }
       }
     } catch (error) {
@@ -69,7 +71,8 @@ export class EventController {
           activityId: event.activityId,
           startDate: event.startDate.toISOString(),
           endDate: event.endDate.toISOString(),
-          isDone: event.isDone
+          isDone: event.isDone,
+          description: event.description || undefined
         }))
       }
     } catch (error) {

@@ -6,8 +6,11 @@
     @click.prevent="toggleEventDone"
     :class="eventWithActivity.activity.color"
   >
-    De {{ dayjs(eventWithActivity.startDate).format('HH:mm') }} à
-    {{ dayjs(eventWithActivity.endDate).format('HH:mm') }}
+    <span
+      >De {{ dayjs(eventWithActivity.startDate).format('HH:mm') }} à
+      {{ dayjs(eventWithActivity.endDate).format('HH:mm') }}</span
+    >
+    <p v-if="eventWithActivity.description">{{ eventWithActivity.description }}</p>
     <NCheckbox size="large" ref="isDoneCheckbox" class="is-done-checkbox" :checked="isChecked" />
   </NCard>
 </template>
@@ -53,6 +56,13 @@ const toggleEventDone = async () => {
   right: var(--n-padding-left);
   top: calc(50% - 9px);
 }
+.daily-event span {
+  font-weight: lighter;
+}
+.daily-event p {
+  margin: 0;
+}
+
 .light-coral:hover {
   border-color: var(--my-color-light-coral);
 }

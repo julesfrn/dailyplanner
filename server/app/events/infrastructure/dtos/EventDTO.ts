@@ -6,4 +6,5 @@ export interface EventDTO extends RowDataPacket {
   start_date: Date
   end_date: Date
   is_done: 1 | 0
+  description?: string
 }
