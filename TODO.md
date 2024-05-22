@@ -3,11 +3,11 @@
 
 ## Fonctionnalités
 
+- [ ] Afficher les prochains jours avec une pastille indiquant le nombre d'évenements
 - [ ] Customiser une checkbox avec les couleurs custom
 - [ ] Ajouter le nombre d'évenements terminés par activité sur le nombre total d'évenements
 - [ ] Supprimer une activité
 - [ ] Supprimer un évenement
-- [ ] Pouvoir voir les événements des jours précédents et suivants
 
 ## Gestions des erreurs
 
